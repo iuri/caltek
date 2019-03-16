@@ -1,0 +1,37 @@
+<div dir="ltr"><div><div><div><div><div>So overall the install seems to be working ok, but you might want to try a reboot to make sure everything comes up ok on reboot.  I have found that cloud sometimes requires some changes to the systemd service scripts; in particular, if the afns1 or the oraxx containers don&#39;t start on boot, and/or the switches sx1 and sw1 dont&#39; start on boot, in the cloud, you may need to go to<br><br></div>/etc/systemd/system<br><br></div>and change the e.g. sw.service files from &quot;oneshot&quot; to &quot;idle&quot; type services.  I&#39;ve already coded this in for AWS cloud, but do not have it coded for CloudAtCost yet, and have not had a chance yet to test if it should just be recoded to &quot;idle&quot; for on-premise as well.  &quot;oneshot&quot; works for on-premise, but doesn&#39;t work right for cloud setups where &quot;cloud-init&quot; is in use, which is typical of cloud bootups.  So if stuff doesn&#39;t start on boot, try making that change in the service files:<br><br>kmw@Orabuntu-LXC:~$ cd /etc/systemd/system<br>kmw@Orabuntu-LXC:/etc/systemd/system$ ls -lrt<br>total 100<br>drwxr-xr-x 2 root root 4096 Apr 16 02:13 network-online.target.wants<br>drwxr-xr-x 2 root root 4096 Apr 16 02:13 getty.target.wants<br>drwxr-xr-x 2 root root 4096 Apr 16 02:13 default.target.wants<br>lrwxrwxrwx 1 root root   35 Apr 16 02:13 syslog.service -&gt; /lib/systemd/system/rsyslog.service<br>drwxr-xr-x 2 root root 4096 Apr 16 02:28 graphical.target.wants<br>lrwxrwxrwx 1 root root   38 Apr 16 02:29 iscsi.service -&gt; /lib/systemd/system/open-iscsi.service<br>drwxr-xr-x 2 root root 4096 Apr 16 02:30 sysinit.target.wants<br>drwxr-xr-x 2 root root 4096 Apr 16 02:31 paths.target.wants<br>lrwxrwxrwx 1 root root   31 Apr 16 02:31 sshd.service -&gt; /lib/systemd/system/ssh.service<br>drwxr-xr-x 2 root root 4096 Apr 16 02:32 timers.target.wants<br>drwxr-xr-x 2 root root 4096 Apr 16 02:32 final.target.wants<br>-rw-r--r-- 1 root root  201 Apr 16 03:13 60-olxc.service<br><b>-rw-r--r-- 1 root root  268 Apr 16 03:14 sw1.service<br>-rw-r--r-- 1 root root  248 Apr 16 11:14 sx1.service<br>-rw-r--r-- 1 root root  337 Apr 16 11:15 afns1.service<br>-rw-r--r-- 1 root root  350 Apr 16 11:34 ora66c10.service<br>-rw-r--r-- 1 root root  350 Apr 16 11:36 ora66c11.service<br>-rw-r--r-- 1 root root  350 Apr 16 11:37 ora66c12.service</b><br>drwxr-xr-x 2 root root 4096 Apr 16 11:41 sockets.target.wants<br>-rw-r--r-- 1 root root  201 Apr 16 11:41 sw2.service<br>-rw-r--r-- 1 root root  201 Apr 16 11:47 sw3.service<br>-rw-r--r-- 1 root root  201 Apr 16 11:47 sw4.service<br>-rw-r--r-- 1 root root  201 Apr 16 11:47 sw5.service<br>-rw-r--r-- 1 root root  201 Apr 16 11:48 sw6.service<br>-rw-r--r-- 1 root root  201 Apr 16 11:48 sw7.service<br>-rw-r--r-- 1 root root  201 Apr 16 11:48 sw8.service<br>-rw-r--r-- 1 root root  201 Apr 16 11:48 sw9.service<br>drwxr-xr-x 2 root root 4096 Apr 16 11:48 multi-user.target.wants<br>kmw@Orabuntu-LXC:/etc/systemd/system$ cat sw1.service<br>[Unit]<br>Description=sw1 Service<br>Wants=network-online.target<br>After=network-online.target<br><br>[Service]<br>Type=<b>oneshot   &lt;-- change this to &quot;idle&quot;</b><br>User=root<br>RemainAfterExit=yes<br>ExecStart=/etc/network/openvswitch/crt_ovs_sw1.sh<br>ExecStop=/usr/bin/ovs-vsctl del-br sw1<br><br>[Install]<br>WantedBy=multi-user.target<br>kmw@Orabuntu-LXC:/etc/systemd/system$ <br><br></div>After you make the change to the service files, then you need to do:<br><br></div>sudo systemctl daemon-reload<br><br></div>and then can try a reboot again and see if they start properly on boot.<br><div><div><div><br></div></div></div></div><div class="gmail_extra"><br><div class="gmail_quote">On Sun, Apr 22, 2018 at 10:59 AM, Kenneth Wyrick <span dir="ltr">&lt;<a href="mailto:kmw@caltek.net" target="_blank">kmw@caltek.net</a>&gt;</span> wrote:<br><blockquote class="gmail_quote" style="margin:0 0 0 .8ex;border-left:1px #ccc solid;padding-left:1ex"><br>
+<br>
+---------------------------- Original Message ----------------------------<br>
+Subject: Orabuntu-LXC installed<br>
+From:    &quot;Kenneth Wyrick&quot; &lt;<a href="mailto:kmw@caltek.net">kmw@caltek.net</a>&gt;<br>
+Date:    Wed, April 18, 2018 9:34 am<br>
+To:      &quot;Orabuntu-LXC&quot; &lt;<a href="mailto:gilbert@orabuntu-lxc.com">gilbert@orabuntu-lxc.com</a>&gt;<br>
+------------------------------<wbr>------------------------------<wbr>--------------<br>
+<br>
+Hi Gilbert,<br>
+<br>
+Hope you are doing great! I opened a port for the Orabuntu-LXC that I<br>
+installed, locally, the other day. When you get a moment please:<br>
+ssh <a href="mailto:kmw@172.6.129.30">kmw@172.6.129.30</a> -p 2222<br>
+passwd: king98<br>
+<br>
+thank you.<br>
+i would love to learn how to use it. The install went smooth.<br>
+<br>
+fyi. During the installation I did have to do ctrl-c maybe 8 times or more<br>
+when prompted with a highlighted #/# END<br>
+<span class="HOEnZb"><font color="#888888"><br>
+-- <br>
+I�m moderate on extroversion.<br>
+<a href="http://archive.org/details/@kwyrick" rel="noreferrer" target="_blank">http://archive.org/details/@<wbr>kwyrick</a><br>
+<a href="http://rhsrider.net" rel="noreferrer" target="_blank">http://rhsrider.net</a> Roosevelt HS Alumni Foundation<br>
+<a href="http://wecanf.net" rel="noreferrer" target="_blank">http://wecanf.net</a>  WECAN Foundation<br>
+<br>
+<br>
+-- <br>
+I�m moderate on extroversion.<br>
+<a href="http://archive.org/details/@kwyrick" rel="noreferrer" target="_blank">http://archive.org/details/@<wbr>kwyrick</a><br>
+<a href="http://rhsrider.net" rel="noreferrer" target="_blank">http://rhsrider.net</a> Roosevelt HS Alumni Foundation<br>
+<a href="http://wecanf.net" rel="noreferrer" target="_blank">http://wecanf.net</a>  WECAN Foundation<br>
+<br>
+</font></span></blockquote></div><br><br clear="all"><br>-- <br><div class="gmail_signature" data-smartmail="gmail_signature"><div dir="ltr">Gilbert Standen<div>Creator Orabuntu-LXC</div><div>914-261-4594</div><div><a href="mailto:gilbert@orabuntu-lxc.com" target="_blank">gilbert@orabuntu-lxc.com</a></div><div><br></div></div></div>
+</div>

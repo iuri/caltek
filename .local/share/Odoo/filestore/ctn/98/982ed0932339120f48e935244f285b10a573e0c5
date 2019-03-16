@@ -1,0 +1,27 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//PYVOBJECT//NONSGML Version 1//EN
+BEGIN:VEVENT
+UID:20180501T004410Z - 19458@localhost
+DTSTART:20180518T010000Z
+DTEND:20180518T040000Z
+ATTENDEE:MAILTO:kmw@caltek.net
+CREATED:20180501T004410Z
+DESCRIPTION:Thursday\, May 17\, 2018 from 6:00 PM to 9:00 PM (PDT)\ndate	Le
+  Méridien Delfina Santa Monica\n530 Pico Boulevard\nSanta Monica\, CA 904
+ 05
+DTSTAMP:20180501T004410Z
+LOCATION:date	Le Méridien Delfina Santa Monica 530 Pico Boulevard Santa Mo
+ nica\, CA 90405
+SUMMARY:On behalf of NFTE LA Metro\, thank you to all of the volunteers tha
+ t participated as Semi-Final Judges. You had the hard task of selecting th
+ e Top 3 Los Angeles Regional Finalists out of 50 businesses to compete in 
+ the Regional Final Youth Challenge on May 17! Thank you for your continued
+  support of our young entrepreneurs.
+BEGIN:VALARM
+ACTION:AUDIO
+DESCRIPTION:1 Day(s)
+TRIGGER;related=START:P1D
+END:VALARM
+END:VEVENT
+END:VCALENDAR

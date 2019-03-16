@@ -1,0 +1,38 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//PYVOBJECT//NONSGML Version 1//EN
+BEGIN:VEVENT
+UID:20180407T163949Z - 86154@localhost
+DTSTART:20180407T080000Z
+DTEND:20180407T100000Z
+ATTENDEE:MAILTO:kmw@caltek.net
+CREATED:20180407T163949Z
+DESCRIPTION:Hi\,\nThanks for grabbing a ticket for the inaugural session of
+  the Crypto Robots\, Cad and Code series at Crashsapce!\n\nI'm Kyle\, I'll
+  be hosting the series\, and presenting the intro session tomorrow\, Satur
+ day April 7th\, from 1-3pm at Crashspace (10526 Venice Blvd\, Los Angeles\
+ , CA\, 90032).\n\nCheck out the (hastily made) resource page for the serie
+ s at www.swarf.io/robotics There you can find links to the slides\, eventb
+ rite signups for future events\, and links to streaming / previously recor
+ ded sessions. (check back after the event for all the links to work). The 
+ slides have lots of notes\, so be sure to check them out\, or have them op
+ en on a laptop / tablet and follow along. \n\nFollow me on twitter\, @risk
+ nc and @swarfio\, or send me an email if you've got a question (swarf.io@g
+ mail.com).\n\nThanks to Crashspace for generously allowing us to use the s
+ pace to present. While you're at Crash\, be sure to take a look around\, v
+ isit their website and sign up for their mailing list\, and if you're inte
+ rested\, become a member. Crashspace's website is www.crashspace.org where
+  you can sign up to be a member\, or find out more information on the spac
+ e and other events hosted there.\n\nSee you there\,\n\nKyle
+DTSTAMP:20180407T163949Z
+LOCATION:10526 Venice Blvd\, Los Angeles\, CA\, 90032
+SUMMARY:Sat 4/7 - Intro to Robotics - Survey of what's out there. Sat 4/21 
+ - CAD for Robots - Sketch\, Extrude\, Revolve\, make a part in onshape May
+  M1 - Robot Coding - How to Make a Teensy drive a servo May M2 - Engineeri
+ ng Design - The Free Body Diagram\, Statics June M1 - CNC Robots to make y
+ our robot - How to take your CAD parts and make them real June M2 - 3D Pri
+ nting and you - How to design and make 3d printed parts. July M1- power an
+ d electronics - How to power and wire up your robots! July M2- GUI / UI - 
+ Make your robot driveable. Future sessions TBD.
+END:VEVENT
+END:VCALENDAR

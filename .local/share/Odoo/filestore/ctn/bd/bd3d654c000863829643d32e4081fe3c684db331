@@ -1,0 +1,240 @@
+kmw@kmw-OptiPlex-790:~$ ssh root@192.168.1.128
+The authenticity of host '192.168.1.128 (192.168.1.128)' can't be established.
+ECDSA key fingerprint is SHA256:qDvHn6tgItNsxAHdalom6TEwTgfZD/TfWfEH5+iSgdQ.
+Are you sure you want to continue connecting (yes/no)? yes
+Warning: Permanently added '192.168.1.128' (ECDSA) to the list of known hosts.
+
+root@192.168.1.128's password: 
+Welcome to Core, TurnKey GNU/Linux 14.2 / Debian 8.7 Jessie
+
+  System information (as of Thu Apr 26 02:36:13 2018)
+  
+    System load:  0.66              Memory usage:  8%
+    Processes:    87                Swap usage:    0%
+    Usage of /:   12.6% of 5.97GB   IP address for eth0:  192.168.1.128
+  
+  TKLBAM (Backup and Migration):  NOT INITIALIZED
+  
+    To initialize TKLBAM, run the "tklbam-init" command to link this
+    system to your TurnKey Hub account. For details see the man page or
+    go to:
+  
+        https://www.turnkeylinux.org/tklbam
+
+root@core ~# adduser kmw
+Adding user `kmw' ...
+Adding new group `kmw' (1000) ...
+Adding new user `kmw' (1000) with group `kmw' ...
+Creating home directory `/home/kmw' ...
+Copying files from `/etc/skel' ...
+Enter new UNIX password: 
+Retype new UNIX password: 
+passwd: password updated successfully
+Changing the user information for kmw
+Enter the new value, or press ENTER for the default
+	Full Name []: kmw
+	Room Number []: 
+	Work Phone []: 
+	Home Phone []: 
+	Other []: 
+Is the information correct? [Y/n] 
+root@core ~# adduser orabuntu
+Adding user `orabuntu' ...
+Adding new group `orabuntu' (1001) ...
+Adding new user `orabuntu' (1001) with group `orabuntu' ...
+Creating home directory `/home/orabuntu' ...
+Copying files from `/etc/skel' ...
+Enter new UNIX password: 
+Retype new UNIX password: 
+passwd: password updated successfully
+Changing the user information for orabuntu
+Enter the new value, or press ENTER for the default
+	Full Name []: orabuntu
+	Room Number []: 
+	Work Phone []: 
+	Home Phone []: 
+	Other []: 
+Is the information correct? [Y/n] 
+root@core ~# apt-get install sudo
+Reading package lists... Done
+Building dependency tree       
+Reading state information... Done
+The following NEW packages will be installed:
+  sudo
+0 upgraded, 1 newly installed, 0 to remove and 49 not upgraded.
+Need to get 854 kB of archives.
+After this operation, 2391 kB of additional disk space will be used.
+Get:1 http://httpredir.debian.org/debian/ jessie/main sudo amd64 1.8.10p3-1+deb8u5 [854 kB]
+Fetched 854 kB in 1s (832 kB/s)
+[master 9c84f2f] saving uncommitted changes in /etc prior to apt run
+ 13 files changed, 25 insertions(+), 2 deletions(-)
+debconf: delaying package configuration, since apt-utils is not installed
+Selecting previously unselected package sudo.
+(Reading database ... 26538 files and directories currently installed.)
+Preparing to unpack .../sudo_1.8.10p3-1+deb8u5_amd64.deb ...
+Unpacking sudo (1.8.10p3-1+deb8u5) ...
+Processing triggers for man-db (2.7.0.2-5) ...
+Processing triggers for systemd (215-17+deb8u6) ...
+Setting up sudo (1.8.10p3-1+deb8u5) ...
+Processing triggers for systemd (215-17+deb8u6) ...
+[master 26d32c5] committing changes in /etc after apt run
+ 5 files changed, 94 insertions(+)
+ create mode 100755 init.d/sudo
+ create mode 100644 pam.d/sudo
+ create mode 100644 sudoers
+ create mode 100644 sudoers.d/README
+Counting objects: 1185, done.
+Compressing objects: 100% (727/727), done.
+Writing objects: 100% (1185/1185), done.
+Total 1185 (delta 67), reused 1146 (delta 51)
+root@core ~# adduser orabuntu sudo
+Adding user `orabuntu' to group `sudo' ...
+Adding user orabuntu to group sudo
+Done.
+root@core ~# adduser kmw sudo
+Adding user `kmw' to group `sudo' ...
+Adding user kmw to group sudo
+Done.
+root@core ~# su orabuntu
+bash: cd: /root: Permission denied
+orabuntu@core /root$ whoami
+orabuntu
+bash: cd: /root: Permission denied
+orabuntu@core /root$ ls
+ls: cannot open directory .: Permission denied
+bash: cd: /root: Permission denied
+orabuntu@core /root$ cd ..
+orabuntu@core /$ ls
+bin   dev  home        lib    lost+found  mnt  proc  run   srv  tmp  var
+boot  etc  initrd.img  lib64  media       opt  root  sbin  sys  usr  vmlinuz
+orabuntu@core /$ cd home
+orabuntu@core /home$ ls
+kmw  orabuntu
+orabuntu@core /home$ cd orabuntu
+orabuntu@core ~$ ls
+orabuntu@core ~$ mkdir Downloads
+orabuntu@core ~$ cd Downloads/
+orabuntu@core ~/Downloads$ ls
+orabuntu@core ~/Downloads$ cd /home/username/Downloads
+bash: cd: /home/username/Downloads: No such file or directory
+orabuntu@core ~/Downloads$ cd ..
+orabuntu@core ~$ cd /home/username/Downloads
+bash: cd: /home/username/Downloads: No such file or directory
+orabuntu@core ~$ ls
+Downloads
+orabuntu@core ~$ cd Downloads/
+orabuntu@core ~/Downloads$ wget https://github.com/gstanden/orabuntu-lxc/archive/master.zip
+converted 'https://github.com/gstanden/orabuntu-lxc/archive/master.zip' (ANSI_X3.4-1968) -> 'https://github.com/gstanden/orabuntu-lxc/archive/master.zip' (UTF-8)
+--2018-04-26 02:43:48--  https://github.com/gstanden/orabuntu-lxc/archive/master.zip
+Resolving github.com (github.com)... 192.30.253.112, 192.30.253.113
+Connecting to github.com (github.com)|192.30.253.112|:443... connected.
+HTTP request sent, awaiting response... 302 Found
+Location: https://codeload.github.com/gstanden/orabuntu-lxc/zip/master [following]
+converted 'https://codeload.github.com/gstanden/orabuntu-lxc/zip/master' (ANSI_X3.4-1968) -> 'https://codeload.github.com/gstanden/orabuntu-lxc/zip/master' (UTF-8)
+--2018-04-26 02:43:49--  https://codeload.github.com/gstanden/orabuntu-lxc/zip/master
+Resolving codeload.github.com (codeload.github.com)... 192.30.255.121, 192.30.255.120
+Connecting to codeload.github.com (codeload.github.com)|192.30.255.121|:443... connected.
+HTTP request sent, awaiting response... 200 OK
+Length: unspecified [application/zip]
+Saving to: 'master.zip'
+
+master.zip              [  <=>                 ] 563.55K  1.90MB/s   in 0.3s   
+
+2018-04-26 02:43:50 (1.90 MB/s) - 'master.zip' saved [577079]
+
+orabuntu@core ~/Downloads$ unzip master.zip
+Archive:  master.zip
+339e1dee1561e4012858e18c600a3d6e805e3bc9
+   creating: orabuntu-lxc-master/
+  inflating: orabuntu-lxc-master/COPYING  
+  inflating: orabuntu-lxc-master/GNU3  
+  inflating: orabuntu-lxc-master/README.md  
+   creating: orabuntu-lxc-master/anylinux/
+  inflating: orabuntu-lxc-master/anylinux/COPYING  
+  inflating: orabuntu-lxc-master/anylinux/GNU3  
+  inflating: orabuntu-lxc-master/anylinux/anylinux-services-0.sh  
+  inflating: orabuntu-lxc-master/anylinux/anylinux-services-1.sh  
+  inflating: orabuntu-lxc-master/anylinux/anylinux-services.ADD.CLONES.sh  
+  inflating: orabuntu-lxc-master/anylinux/anylinux-services.ADD.RELEASE.ON.GRE.HOST.1420.sh  
+  inflating: orabuntu-lxc-master/anylinux/anylinux-services.ADD.RELEASE.ON.HUB.HOST.1500.sh  
+  inflating: orabuntu-lxc-master/anylinux/anylinux-services.GRE.HOST.sh  
+  inflating: orabuntu-lxc-master/anylinux/anylinux-services.HUB.HOST.sh  
+  inflating: orabuntu-lxc-master/anylinux/anylinux-services.VM.ON.GRE.HOST.1420.sh  
+  inflating: orabuntu-lxc-master/anylinux/anylinux-services.VM.ON.HUB.HOST.1500.sh  
+  inflating: orabuntu-lxc-master/anylinux/anylinux-services.sh  
+  inflating: orabuntu-lxc-master/anylinux/anylinux.lst  
+  inflating: orabuntu-lxc-master/anylinux/dnf2yum  
+  inflating: orabuntu-lxc-master/anylinux/vercomp  
+  inflating: orabuntu-lxc-master/description  
+   creating: orabuntu-lxc-master/installs/
+  inflating: orabuntu-lxc-master/installs/COPYING  
+  inflating: orabuntu-lxc-master/installs/GNU3  
+   creating: orabuntu-lxc-master/installs/logs/
+  inflating: orabuntu-lxc-master/installs/logs/COPYING  
+  inflating: orabuntu-lxc-master/installs/logs/GNU3  
+   creating: orabuntu-lxc-master/orabuntu/
+  inflating: orabuntu-lxc-master/orabuntu/COPYING  
+  inflating: orabuntu-lxc-master/orabuntu/GNU3  
+   creating: orabuntu-lxc-master/orabuntu/archives/
+  inflating: orabuntu-lxc-master/orabuntu/archives/COPYING  
+  inflating: orabuntu-lxc-master/orabuntu/archives/GNU3  
+  inflating: orabuntu-lxc-master/orabuntu/archives/dns-dhcp-cont.lst  
+  inflating: orabuntu-lxc-master/orabuntu/archives/dns-dhcp-cont.tar  
+  inflating: orabuntu-lxc-master/orabuntu/archives/dns-dhcp-host.lst  
+  inflating: orabuntu-lxc-master/orabuntu/archives/dns-dhcp-host.tar  
+  inflating: orabuntu-lxc-master/orabuntu/archives/docker_install_orabuntu.sh  
+  inflating: orabuntu-lxc-master/orabuntu/archives/file-exceptions.txt  
+  inflating: orabuntu-lxc-master/orabuntu/archives/lxc-oracle-files.lst  
+  inflating: orabuntu-lxc-master/orabuntu/archives/lxc-oracle-files.tar  
+  inflating: orabuntu-lxc-master/orabuntu/archives/nameserver_copy.sh  
+  inflating: orabuntu-lxc-master/orabuntu/archives/scst-files.lst  
+  inflating: orabuntu-lxc-master/orabuntu/archives/scst-files.tar  
+  inflating: orabuntu-lxc-master/orabuntu/archives/tgt-files.lst  
+  inflating: orabuntu-lxc-master/orabuntu/archives/tgt-files.tar  
+  inflating: orabuntu-lxc-master/orabuntu/archives/ubuntu-host.lst  
+  inflating: orabuntu-lxc-master/orabuntu/archives/ubuntu-host.tar  
+  inflating: orabuntu-lxc-master/orabuntu/orabuntu-services-0.sh  
+  inflating: orabuntu-lxc-master/orabuntu/orabuntu-services-1.sh  
+  inflating: orabuntu-lxc-master/orabuntu/orabuntu-services-2.sh  
+  inflating: orabuntu-lxc-master/orabuntu/orabuntu-services-3.sh  
+  inflating: orabuntu-lxc-master/orabuntu/orabuntu-services-4.sh  
+  inflating: orabuntu-lxc-master/orabuntu/orabuntu-services-5.sh  
+   creating: orabuntu-lxc-master/products/
+  inflating: orabuntu-lxc-master/products/no-product  
+  inflating: orabuntu-lxc-master/products/no-product.lst  
+  inflating: orabuntu-lxc-master/products/no-product.tar  
+  inflating: orabuntu-lxc-master/products/oracle-db  
+  inflating: orabuntu-lxc-master/products/oracle-db.lst  
+  inflating: orabuntu-lxc-master/products/oracle-db.tar  
+  inflating: orabuntu-lxc-master/products/workspaces  
+  inflating: orabuntu-lxc-master/products/workspaces.lst  
+  inflating: orabuntu-lxc-master/products/workspaces.tar  
+   creating: orabuntu-lxc-master/uekulele/
+  inflating: orabuntu-lxc-master/uekulele/COPYING  
+  inflating: orabuntu-lxc-master/uekulele/GNU3  
+   creating: orabuntu-lxc-master/uekulele/archives/
+  inflating: orabuntu-lxc-master/uekulele/archives/COPYING  
+  inflating: orabuntu-lxc-master/uekulele/archives/GNU3  
+  inflating: orabuntu-lxc-master/uekulele/archives/dns-dhcp-cont.lst  
+  inflating: orabuntu-lxc-master/uekulele/archives/dns-dhcp-cont.tar  
+  inflating: orabuntu-lxc-master/uekulele/archives/dns-dhcp-host.lst  
+  inflating: orabuntu-lxc-master/uekulele/archives/dns-dhcp-host.tar  
+  inflating: orabuntu-lxc-master/uekulele/archives/docker_install_uekulele.sh  
+  inflating: orabuntu-lxc-master/uekulele/archives/file-exceptions.txt  
+  inflating: orabuntu-lxc-master/uekulele/archives/lxc-oracle-files.lst  
+  inflating: orabuntu-lxc-master/uekulele/archives/lxc-oracle-files.tar  
+  inflating: orabuntu-lxc-master/uekulele/archives/nameserver_copy.sh  
+  inflating: orabuntu-lxc-master/uekulele/archives/scst-files.lst  
+  inflating: orabuntu-lxc-master/uekulele/archives/scst-files.tar  
+  inflating: orabuntu-lxc-master/uekulele/archives/tgt-files.lst  
+  inflating: orabuntu-lxc-master/uekulele/archives/tgt-files.tar  
+  inflating: orabuntu-lxc-master/uekulele/archives/ubuntu-host.lst  
+  inflating: orabuntu-lxc-master/uekulele/archives/ubuntu-host.tar  
+  inflating: orabuntu-lxc-master/uekulele/uekulele-services-0.sh  
+  inflating: orabuntu-lxc-master/uekulele/uekulele-services-1.sh  
+  inflating: orabuntu-lxc-master/uekulele/uekulele-services-2.sh  
+  inflating: orabuntu-lxc-master/uekulele/uekulele-services-3.sh  
+  inflating: orabuntu-lxc-master/uekulele/uekulele-services-4.sh  
+  inflating: orabuntu-lxc-master/uekulele/uekulele-services-5.sh  
+orabuntu@core ~/Downloads$ cd orabuntu-lxc-master/anylinux
+orabuntu@core orabuntu-lxc-master/anylinux$ ./anylinux-services.HUB.HOST.sh new
